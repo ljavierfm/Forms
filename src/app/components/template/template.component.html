@@ -10,7 +10,15 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" minlength="5" placeholder="Nombre" name="nombre" required [(ngModel)]="usuario.nombre">
+        <input class="form-control" type="text" minlength="5" placeholder="Nombre" name="nombre" required [(ngModel)]="usuario.nombre"
+          #nombre="ngModel">
+
+        <div *ngIf="nombre.errors?.required">
+          El campo es requerido
+        </div>
+        <div *ngIf="nombre.errors?.minlength">
+          El campo necesita un mínimo de {{nombre.errors.minlength.requiredLength}} carácteres
+        </div>
       </div>
     </div>
 
@@ -18,7 +26,18 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" minlength="5" placeholder="Apellido" name="apellido" required [(ngModel)]="usuario.apellido">
+        <input class="form-control" type="text" minlength="10" placeholder="Apellido" name="apellido" required [(ngModel)]="usuario.apellido"
+          #apellido="ngModel">
+        <div *ngIf="apellido.errors?.required">
+
+          El campo es requerido
+        </div>
+        <div *ngIf="apellido.errors?.minlength">
+
+          El campo necesita un mínimo de {{apellido.errors.minlength.requiredLength}} carácteres
+
+        </div>
+
       </div>
     </div>
 
@@ -27,7 +46,18 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
-      <input class="form-control" type="email" placeholder="Correo electrónico" name="email" required [(ngModel)]="usuario.email">
+      <input class="form-control" type="email" placeholder="Correo electrónico" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        required [(ngModel)]="usuario.email" #email="ngModel">
+      <div *ngIf="email.errors?.required">
+
+        El campo es requerido
+      </div>
+      <div *ngIf="email.errors?.pattern">
+
+        El email no es válido
+      </div>
+
+
     </div>
   </div>
 

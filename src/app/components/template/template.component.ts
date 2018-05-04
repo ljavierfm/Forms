@@ -4,14 +4,17 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-template',
   templateUrl: './template.component.html',
-  styles: []
+  styles: [`.ng-invalid.ng-touched:not(form){
+    border:1px solid red;`
+
+  ]
 })
 export class TemplateComponent implements OnInit {
 
   usuario: Object = {
-    nombre: 'Javier',
-    apellido: 'Fernández',
-    email: 'bitoman@gmail.com'
+    nombre: '',
+    apellido: '',
+    email: ''
   }
 
   constructor() { }
@@ -23,10 +26,7 @@ export class TemplateComponent implements OnInit {
     console.log("Formulario posteado");
     console.log("ngForm", forma);
     console.log("Valor: ", forma.value);
-    console.log("Usuario: ",this.usuario);
-
-    let chain='';
-    forma.valid?chain='valid':chain="invalid";
+    console.log("Usuario: ", this.usuario);
 
   }
 
