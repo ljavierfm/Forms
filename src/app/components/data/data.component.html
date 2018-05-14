@@ -1,3 +1,55 @@
-<p>
-  data works!
-</p>
+<h4>Formularios
+  <small>data</small>
+</h4>
+<hr>
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()">
+  <div formGroupName="nombreCompleto">
+<div class="form-group row" [ngClass]="{'is-invalid':!forma.get('nombreCompleto.nombre').valid}">
+
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+        <input class="form-control" type="text" placeholder="Nombre" name="nombre" formControlName="nombre">
+
+      </div>
+      <div *ngIf="forma.get('nombreCompleto.nombre').errors?.required">
+
+        El campo es requerido
+      </div>
+      <div *ngIf="forma.get('nombreCompleto.nombre').errors?.minlength">
+        Por lo menos 3 caracteres
+      </div>
+
+
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control" type="text" placeholder="Apellido" name="apellidos" formControlName="apellido">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-md-8">
+
+      <input class="form-control" type="email" placeholder="Correo electrónico" name="email" formControlName="correo">
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+
+      {{forma.valid}}
+    </div>
+  </div>
+
+</form>
