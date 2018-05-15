@@ -4,7 +4,7 @@
 <hr>
 <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
   <div formGroupName="nombreCompleto">
-<div class="form-group row" [ngClass]="{'is-invalid':!forma.get('nombreCompleto.nombre').valid}">
+    <div class="form-group row" [ngClass]="{'is-invalid':!forma.get('nombreCompleto.nombre').valid}">
 
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
@@ -38,6 +38,15 @@
       <input class="form-control" type="email" placeholder="Correo electrónico" name="email" formControlName="correo">
     </div>
   </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8" formArrayName="pasatiempos">
+      <input class="form-control" type="text" *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls;let i=index" [formControlName]="i">
+    </div>
+    <button type="button" class="btn btn-primary" (click)=agregarPasatiempo()>Nuevo</button>
+  </div>
+
 
 
 
