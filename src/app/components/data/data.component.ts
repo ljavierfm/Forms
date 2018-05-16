@@ -34,11 +34,18 @@ export class DataComponent implements OnInit {
         'correo': new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
         'pasatiempos': new FormArray([
           new FormControl('Correr',Validators.required)
-        ])
+        ]),
+        'password1':new FormControl('',Validators.required),
+        'password2':new FormControl()
       }
     )
 
     // this.forma.setValue(this.usuario);
+
+    this.forma.controls['password2'].setValidators([
+      Validators.required,
+      this.noIgual.bind(this.forma)
+    ])
   }
 
   guardarCambios() {
@@ -61,6 +68,17 @@ export class DataComponent implements OnInit {
   noFernandez(control:FormControl):{[s:string]:boolean}{
     if (((control.value).toLowerCase())==='fernandez'){
       return {noFernandez:true}
+    }
+
+    return null;
+  }
+
+  noIgual(control: FormControl): { [s: string]: boolean } {
+
+    let forma:any=this;
+
+    if (control.value!=forma.controls['password1'].value) {
+      return { noiguales: true }
     }
 
     return null;
