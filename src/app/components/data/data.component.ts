@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validator, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { reject } from 'q';
 
 
 @Component({
@@ -35,6 +37,7 @@ export class DataComponent implements OnInit {
         'pasatiempos': new FormArray([
           new FormControl('Correr',Validators.required)
         ]),
+        'username':new FormControl('',Validators.required,[this.existeUsuario]),
         'password1':new FormControl('',Validators.required),
         'password2':new FormControl()
       }
@@ -45,7 +48,10 @@ export class DataComponent implements OnInit {
     this.forma.controls['password2'].setValidators([
       Validators.required,
       this.noIgual.bind(this.forma)
-    ])
+    ]);
+
+    this.forma.controls['username'].valueChanges.subscribe(data=>console.log(data));
+    this.forma.controls['username'].statusChanges.subscribe(data => console.log(data));
   }
 
   guardarCambios() {
@@ -83,6 +89,24 @@ export class DataComponent implements OnInit {
 
     return null;
   }
+
+  existeUsuario(control:FormControl):Promise<any>|Observable<any>{
+
+    let promesa=new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        if(control.value==='ferja'){
+          resolve({existe:true});
+        }
+        else{
+          resolve(null);
+        }
+      },3000
+    )
+    }
+  )
+    return promesa;
+  }
+
 
   ngOnInit() {
     console.log(this.forma);
